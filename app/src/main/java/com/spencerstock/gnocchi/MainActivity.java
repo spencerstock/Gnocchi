@@ -9,13 +9,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 
 public class MainActivity extends AppCompatActivity {
 
     public static final int REQUEST_IMAGE_CODE = 123;
-    Button buttonNewGnocchi;
-    Button buttonAddPhoto;
-    ImageButton button_test_gnocchi;
+    Button    buttonNewGnocchi;
+    Button    buttonAddPhoto;
+    ImageView button_test_gnocchi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +26,6 @@ public class MainActivity extends AppCompatActivity {
 
         buttonAddPhoto = findViewById(R.id.button_add_photo);
         buttonNewGnocchi = findViewById(R.id.button_new);
-        button_test_gnocchi = findViewById(R.id.test_imageButton);
 
 
         buttonAddPhoto.setOnClickListener(new View.OnClickListener() {

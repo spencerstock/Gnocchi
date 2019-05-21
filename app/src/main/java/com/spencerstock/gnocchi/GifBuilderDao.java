@@ -2,6 +2,8 @@ package com.spencerstock.gnocchi;
 
 import android.graphics.Bitmap;
 
+import com.spencerstock.gnocchi.GifBuilder.GifBuilder;
+
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 

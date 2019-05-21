@@ -26,8 +26,6 @@ public class MainActivity extends AppCompatActivity {
 
         buttonAddPhoto = findViewById(R.id.button_add_photo);
         buttonNewGnocchi = findViewById(R.id.button_new);
-
-
         buttonAddPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

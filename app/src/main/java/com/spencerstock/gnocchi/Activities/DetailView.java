@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.widget.GridLayout;
 import android.widget.ImageView;
 
+import com.spencerstock.gnocchi.FileIO.BitmapFileDao;
+import com.spencerstock.gnocchi.FileIO.ImageSorter;
 import com.spencerstock.gnocchi.R;
 
 import java.util.ArrayList;
@@ -21,6 +23,8 @@ public class DetailView extends AppCompatActivity {
         setContentView(R.layout.activity_detail_view);
 
         gridLayout = findViewById(R.id.parent_gridLayout);
+
+        images = BitmapFileDao.getImages(this);
 
 
 

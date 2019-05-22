@@ -23,7 +23,7 @@ public class BitmapFileDao {
     public static void saveImage(Context context, Bitmap bitmap, String groupName, int imgNumber) throws IOException {
         // Create an image file name
         String imageFileName = "JPEG_" + groupName + "_" + imgNumber;
-        File storageDir = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File storageDir = context.getFilesDir();
         File image = File.createTempFile(
                 imageFileName,  /* prefix */
                 ".jpg",         /* suffix */
@@ -38,11 +38,11 @@ public class BitmapFileDao {
     }
 
 
-    public static ArrayList<Bitmap> getImages() {
+    public static ArrayList<Bitmap> getImages(Context context) {
 
 
         ArrayList<Bitmap> images = new ArrayList<>();
-        String path = Environment.getExternalStorageDirectory().toString() + "/Pictures";
+        String path = context.getFilesDir().toString();
         Log.d("Files", "Path: " + path);
         File directory = new File(path);
         File[] files = directory.listFiles();

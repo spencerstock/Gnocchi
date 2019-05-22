@@ -1,4 +1,4 @@
-package com.spencerstock.gnocchi;
+package com.spencerstock.gnocchi.GifBuilder;
 
 import android.graphics.Bitmap;
 

@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Gnocchi</string>
+
+
+    <string-array name="quality_options">
+        <item>Medium (recommended)</item>
+        <item>Low (for long gifs)</item>
+        <item>High (not recommended)</item>
+    </string-array>
 </resources>

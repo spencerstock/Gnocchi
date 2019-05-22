@@ -1,4 +1,4 @@
-package com.spencerstock.gnocchi;
+package com.spencerstock.gnocchi.Activities;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -11,6 +11,8 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
+import com.spencerstock.gnocchi.R;
+
 public class MainActivity extends AppCompatActivity {
 
     public static final int REQUEST_IMAGE_CODE = 123;
@@ -22,6 +24,15 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+
+        buttonNewGnocchi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent();
+            }
+        });
 
 
         buttonAddPhoto = findViewById(R.id.button_add_photo);

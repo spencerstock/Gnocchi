@@ -18,31 +18,30 @@ import java.util.Date;
 public class BitmapFileDao {
 
 
-    static String currentPhotoPath;
+    //static String currentPhotoPath;
 
-    public static void saveImage(Context context, Bitmap bitmap, String groupName, int imgNumber) throws IOException {
+
+    public static File createImageFile(Context context, String groupName, int imgNumber) throws IOException {
         // Create an image file name
         String imageFileName = "JPEG_" + groupName + "_" + imgNumber;
-        File storageDir = context.getFilesDir();
+        File storageDir = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
         File image = File.createTempFile(
                 imageFileName,  /* prefix */
                 ".jpg",         /* suffix */
                 storageDir      /* directory */
         );
 
-        FileOutputStream fileOutputStream = new FileOutputStream(image);
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, fileOutputStream);
-
-        // Save a file: path for use with ACTION_VIEW intents (not needed)
+        // Save a file: path for use with ACTION_VIEW intents
         //currentPhotoPath = image.getAbsolutePath();
+        return image;
     }
-
 
     public static ArrayList<Bitmap> getImages(Context context) {
 
 
         ArrayList<Bitmap> images = new ArrayList<>();
-        String path = context.getFilesDir().toString();
+        //String path = context.getFilesDir().toString();
+        String path = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES).toString();
         Log.d("Files", "Path: " + path);
         File directory = new File(path);
         File[] files = directory.listFiles();

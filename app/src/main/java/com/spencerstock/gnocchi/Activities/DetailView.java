@@ -8,9 +8,13 @@ import android.widget.ImageView;
 
 import com.spencerstock.gnocchi.FileIO.BitmapFileDao;
 import com.spencerstock.gnocchi.FileIO.ImageSorter;
+import com.spencerstock.gnocchi.GifBuilder.GifBuilderDao;
 import com.spencerstock.gnocchi.R;
 
 import java.util.ArrayList;
+
+import pl.droidsonroids.gif.GifDrawable;
+import pl.droidsonroids.gif.GifImageView;
 
 public class DetailView extends AppCompatActivity {
 
@@ -31,10 +35,19 @@ public class DetailView extends AppCompatActivity {
         for (Bitmap image: images) {
             ImageView temp = new ImageView(this);
             temp.setImageBitmap(image);
-            //temp.setMaxHeight(250);
-            //temp.setMaxWidth(250);
+            //temp.setAdjustViewBounds(true);
+            temp.setMaxHeight(250);
+            temp.setMaxWidth(250);
             gridLayout.addView(temp);
         }
+
+
+        GifDrawable gifDrawable = GifBuilderDao.generateGIF(images);
+        GifImageView gifImageView = new GifImageView(this);
+        gifImageView.setBackground(gifDrawable);
+        gifDrawable.setLoopCount(0);
+        gifDrawable.start();
+        gridLayout.addView(gifImageView);
 
 
     }

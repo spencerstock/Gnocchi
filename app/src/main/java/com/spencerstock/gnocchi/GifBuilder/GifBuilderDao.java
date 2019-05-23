@@ -1,16 +1,18 @@
 package com.spencerstock.gnocchi.GifBuilder;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 
-import com.spencerstock.gnocchi.GifBuilder.GifBuilder;
-
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
+
+import pl.droidsonroids.gif.GifDrawable;
 
 public class GifBuilderDao {
 
 
-    public byte[] generateGIF(ArrayList<Bitmap> images) {
+    public static GifDrawable generateGIF(ArrayList<Bitmap> images) {
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         GifBuilder encoder = new GifBuilder();
         encoder.start(bos);
@@ -18,6 +20,25 @@ public class GifBuilderDao {
             encoder.addFrame(image);
         }
         encoder.finish();
-        return bos.toByteArray();
+
+
+        GifDrawable gifDrawable = byteArrayToGif(bos.toByteArray());
+
+        return gifDrawable;
     }
+
+
+    private static GifDrawable byteArrayToGif(byte[] byteArray) {
+
+
+        GifDrawable gif = null;
+        try {
+            gif = new GifDrawable(byteArray);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return gif;
+    }
+
+
 }

@@ -26,10 +26,8 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     Button  buttonNewGnocchi;
-    Button  button_test_gnocchi;
     ArrayList<GnocchiOverview> gnocchiOverviews;
     LinearLayout linearLayoutParent;
-    int     imageNumber = 0;
     Context context;
 
     @Override
@@ -38,18 +36,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         buttonNewGnocchi = findViewById(R.id.button_new);
-        button_test_gnocchi = findViewById(R.id.button_test_gnocchi);
         linearLayoutParent = findViewById(R.id.parent_linearLayout);
 
         context = this;
-
-        button_test_gnocchi.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), DetailView.class);
-                startActivity(i);
-            }
-        });
 
         buttonNewGnocchi.setOnClickListener(new View.OnClickListener() {
             @Override

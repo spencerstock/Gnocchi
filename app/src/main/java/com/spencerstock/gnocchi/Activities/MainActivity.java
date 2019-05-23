@@ -2,21 +2,26 @@ package com.spencerstock.gnocchi.Activities;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.provider.MediaStore;
-import android.support.annotation.Nullable;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.spencerstock.gnocchi.FileIO.BitmapFileDao;
+import com.spencerstock.gnocchi.ImageProperties.GnocchiOverview;
+import com.spencerstock.gnocchi.ImageProperties.MyLayoutInflater;
 import com.spencerstock.gnocchi.R;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -24,6 +29,8 @@ public class MainActivity extends AppCompatActivity {
     Button  buttonNewGnocchi;
     Button  buttonAddPhoto;
     Button  button_test_gnocchi;
+    ArrayList<GnocchiOverview> gnocchiOverviews;
+    LinearLayout linearLayoutParent;
     int     imageNumber = 0;
     Context context;
 
@@ -35,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
         buttonAddPhoto = findViewById(R.id.button_add_photo);
         buttonNewGnocchi = findViewById(R.id.button_new);
         button_test_gnocchi = findViewById(R.id.button_test_gnocchi);
+        linearLayoutParent = findViewById(R.id.parent_linearLayout);
 
         context = this;
 
@@ -63,21 +71,22 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        gnocchiOverviews = BitmapFileDao.getGnocchies(this);
+
+
+
+        MyLayoutInflater myLayoutInflater = new MyLayoutInflater(this, gnocchiOverviews);
+
+
+        for (int i = 0; i < gnocchiOverviews.size(); ++i) {
+            View view = myLayoutInflater.getView(i, null, null);
+            linearLayoutParent.addView(view);
+        }
+
+
+
 
     }
-
-    /*@Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if (requestCode == REQUEST_IMAGE_CODE && resultCode == RESULT_OK) {
-            Bundle extras = data.getExtras();
-            Bitmap imageBitmap = (Bitmap) extras.get("data");
-            try {
-                BitmapFileDao.saveImage(this, imageBitmap, "TestGroup", ++imageNumber);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }*/
 
 
     private void dispatchTakePictureIntent() {
@@ -102,4 +111,8 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+
 }
+
+
+

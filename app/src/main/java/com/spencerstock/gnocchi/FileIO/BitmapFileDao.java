@@ -25,11 +25,13 @@ public class BitmapFileDao {
         // Create an image file name
         String imageFileName = "JPEG_" + groupName + "_" + imgNumber;
         File storageDir = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-        File image = File.createTempFile(
-                imageFileName,  /* prefix */
-                ".jpg",         /* suffix */
-                storageDir      /* directory */
-        );
+        /*File image = File.createTempFile( //created a temp file, had extra numbers in file name
+                imageFileName,  *//* prefix *//*
+                ".jpg",         *//* suffix *//*
+                storageDir      *//* directory *//*
+        );*/
+
+        File image = new File(storageDir, groupName + "_" + imgNumber + ".jpg");
 
         // Save a file: path for use with ACTION_VIEW intents
         //currentPhotoPath = image.getAbsolutePath();

@@ -6,15 +6,22 @@
     android:layout_height="match_parent"
     tools:context=".Activities.DetailView">
 
-    <GridLayout
-        android:id="@+id/parent_gridLayout"
-        android:columnCount="3"
+    <ScrollView
+
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <GridLayout
+        android:id="@+id/parent_gridLayout"
+        android:clipChildren="true"
+        android:columnCount="1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
 
     </GridLayout>
 
+    </ScrollView>
 </android.support.constraint.ConstraintLayout>

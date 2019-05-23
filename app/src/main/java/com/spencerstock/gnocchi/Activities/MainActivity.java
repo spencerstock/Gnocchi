@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
             // Create the File where the photo should go
             File photoFile = null;
             try {
-                photoFile = BitmapFileDao.createImageFile(context, "TestGroup2", ++imageNumber);
+                photoFile = BitmapFileDao.createImageFile(context, "TestGroup2", imageNumber++);
             } catch (IOException ex) {
                 // Error occurred while creating the File
                 ex.printStackTrace();

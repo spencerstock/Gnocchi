@@ -10,6 +10,7 @@
         android:layout_height="150dp"
         android:layout_margin="5dp"
         android:padding="10dp"
+        android:backgroundTint="@color/blue_500"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         card_view:cardCornerRadius="4dp">
@@ -44,6 +45,16 @@
                 android:text="This is example text also"
                 app:layout_constraintStart_toEndOf="@id/single_element_imageView"
                 app:layout_constraintTop_toBottomOf="@id/single_element_textView_top" />
+
+            <ImageView
+                android:id="@+id/single_element_add_photo_imageView"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+
+                android:padding="10dp"
+                android:src="@drawable/round_add_a_photo_black_18dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
 
         </android.support.constraint.ConstraintLayout>
 

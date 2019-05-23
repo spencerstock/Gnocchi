@@ -2,9 +2,13 @@ package com.spencerstock.gnocchi.FileIO;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Environment;
+import android.provider.MediaStore;
+import android.support.v4.content.FileProvider;
 import android.util.Log;
 
 import com.spencerstock.gnocchi.ImageProperties.GnocchiOverview;
@@ -21,6 +25,7 @@ public class BitmapFileDao {
 
 
     //static String currentPhotoPath;
+    private static final int REQUEST_IMAGE_CODE = 123;
 
 
     public static File createImageFile(Context context, String groupName, int imgNumber) throws IOException {
@@ -58,6 +63,29 @@ public class BitmapFileDao {
         Log.d("Files", "Size: " + files.length);
         return ImageSorter.sortImages(files);
 
+    }
+
+    public static void dispatchTakePictureIntent(Context context, int imageNumber) {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        // Ensure that there's a camera activity to handle the intent
+        if (takePictureIntent.resolveActivity(context.getPackageManager()) != null) {
+            // Create the File where the photo should go
+            File photoFile = null;
+            try {
+                photoFile = BitmapFileDao.createImageFile(context, "TestGroup2", imageNumber);
+            } catch (IOException ex) {
+                // Error occurred while creating the File
+                ex.printStackTrace();
+            }
+            // Continue only if the File was successfully created
+            if (photoFile != null) {
+                Uri photoURI = FileProvider.getUriForFile(context,
+                        "com.spencerstock.gnocchi.fileprovider",
+                        photoFile);
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+                ((Activity)context).startActivityForResult(takePictureIntent, REQUEST_IMAGE_CODE);
+            }
+        }
     }
 
 }

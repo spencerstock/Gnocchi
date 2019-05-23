@@ -25,7 +25,6 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static final int REQUEST_IMAGE_CODE = 123;
     Button  buttonNewGnocchi;
     Button  buttonAddPhoto;
     Button  button_test_gnocchi;
@@ -64,12 +63,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        buttonAddPhoto.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dispatchTakePictureIntent();
-            }
-        });
+
 
         gnocchiOverviews = BitmapFileDao.getGnocchies(this);
 
@@ -84,33 +78,20 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
+        buttonAddPhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BitmapFileDao.dispatchTakePictureIntent(context, imageNumber++);
+            }
+        });
+
+
 
 
     }
 
 
-    private void dispatchTakePictureIntent() {
-        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        // Ensure that there's a camera activity to handle the intent
-        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-            // Create the File where the photo should go
-            File photoFile = null;
-            try {
-                photoFile = BitmapFileDao.createImageFile(context, "TestGroup2", imageNumber++);
-            } catch (IOException ex) {
-                // Error occurred while creating the File
-                ex.printStackTrace();
-            }
-            // Continue only if the File was successfully created
-            if (photoFile != null) {
-                Uri photoURI = FileProvider.getUriForFile(this,
-                        "com.spencerstock.gnocchi.fileprovider",
-                        photoFile);
-                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
-                startActivityForResult(takePictureIntent, REQUEST_IMAGE_CODE);
-            }
-        }
-    }
+
 
 }
 

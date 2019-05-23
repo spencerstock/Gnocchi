@@ -31,12 +31,14 @@ public class ImageSorter {
             for (int i = 0; i < overviews.size(); ++i) { //if a new gnocchi is found, create an overview
                 if (!fileTitle.equals("") && fileTitle.equals(overviews.get(i).getTitle())) {
                     newGnocchi = false;
+                    overviews.get(i).setSize(overviews.get(i).getSize()+1);
                 }
             }
             if (newGnocchi) {
                 GnocchiOverview temp = new GnocchiOverview();
                 temp.setTitle(fileTitle);
                 temp.setFirstFrame(BitmapFactory.decodeFile(image.getPath()));
+                temp.setSize(1);
                 //TODO: add gif preview if available
                 overviews.add(temp);
             }

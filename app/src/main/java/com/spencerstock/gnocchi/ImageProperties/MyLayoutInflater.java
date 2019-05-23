@@ -1,6 +1,7 @@
 package com.spencerstock.gnocchi.ImageProperties;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.spencerstock.gnocchi.Activities.DetailView;
+import com.spencerstock.gnocchi.FileIO.BitmapFileDao;
 import com.spencerstock.gnocchi.R;
 
 import java.util.ArrayList;
@@ -34,17 +37,34 @@ public class MyLayoutInflater extends ArrayAdapter{
         view = mInflater.inflate(R.layout.single_element_gnocchi_list, parent, false);
 
         /* Get the item in the adapter */
-        GnocchiOverview myObject = objects.get(position);
+        final GnocchiOverview myObject = objects.get(position);
 
         /* Get the widget with id name which is defined in the xml of the row */
         TextView title = view.findViewById(R.id.single_element_textView_top);
         ImageView preview = view.findViewById(R.id.single_element_imageView);
+        ImageView add_photo = view.findViewById(R.id.single_element_add_photo_imageView);
+        add_photo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Context context = v.getContext();
+                BitmapFileDao.dispatchTakePictureIntent(context, myObject.getSize()+1);
+                myObject.setSize(myObject.getSize()+1);
+            }
+        });
 
         /* Populate the row's xml with info from the item */
         title.setText(myObject.getTitle());
         preview.setImageBitmap(myObject.getFirstFrame());
 
         /* Return the generated view */
+
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(v.getContext().getApplicationContext(), DetailView.class);
+                v.getContext().startActivity(i);
+            }
+        });
         return view;
     }
 }

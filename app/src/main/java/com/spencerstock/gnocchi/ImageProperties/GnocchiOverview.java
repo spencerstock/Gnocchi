@@ -10,6 +10,7 @@ public class GnocchiOverview {
     private String title;
     private Bitmap firstFrame;
     private GifDrawable gifPreview;
+    private int size;
 
 
     public GnocchiOverview() {
@@ -43,5 +44,13 @@ public class GnocchiOverview {
 
     public void setGifPreview(GifDrawable gifPreview) {
         this.gifPreview = gifPreview;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
     }
 }

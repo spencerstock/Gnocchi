@@ -30,13 +30,13 @@ public class BitmapFileDao {
 
     public static File createImageFile(Context context, String groupName, int imgNumber) throws IOException {
         // Create an image file name
-        String imageFileName = "JPEG_" + groupName + "_" + imgNumber;
+        String imageFileName = "JPEG_" + groupName + "_" + imgNumber + ".jpg";
         File storageDir = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-        File image = new File(storageDir, groupName + "_" + imgNumber + ".jpg");
+        File image = new File(storageDir, imageFileName);
         return image;
     }
 
-    public static ArrayList<Bitmap> getImages(Context context) {
+    public static ArrayList<Bitmap> getGnocchi(Context context, String name) {
         ArrayList<Bitmap> images = new ArrayList<>();
         //String path = context.getFilesDir().toString();
         String path = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES).toString();
@@ -47,7 +47,9 @@ public class BitmapFileDao {
         for (File file : files) {
             Log.d("Files", "FilesName:" + file.getName());
             if (file.getName().toLowerCase().endsWith("jpg")) {
-                images.add(BitmapFactory.decodeFile(file.getPath()));
+                if (file.getName().contains(name)) {
+                    images.add(BitmapFactory.decodeFile(file.getPath()));
+                }
             }
         }
         return images;
@@ -65,14 +67,15 @@ public class BitmapFileDao {
 
     }
 
-    public static void dispatchTakePictureIntent(Context context, int imageNumber) {
+
+    public static void dispatchTakePictureIntent(Context context, int imageNumber, String groupName) {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         // Ensure that there's a camera activity to handle the intent
         if (takePictureIntent.resolveActivity(context.getPackageManager()) != null) {
             // Create the File where the photo should go
             File photoFile = null;
             try {
-                photoFile = BitmapFileDao.createImageFile(context, "TestGroup2", imageNumber);
+                photoFile = BitmapFileDao.createImageFile(context, groupName, imageNumber);
             } catch (IOException ex) {
                 // Error occurred while creating the File
                 ex.printStackTrace();
@@ -83,7 +86,7 @@ public class BitmapFileDao {
                         "com.spencerstock.gnocchi.fileprovider",
                         photoFile);
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
-                ((Activity)context).startActivityForResult(takePictureIntent, REQUEST_IMAGE_CODE);
+                ((Activity) context).startActivityForResult(takePictureIntent, REQUEST_IMAGE_CODE);
             }
         }
     }

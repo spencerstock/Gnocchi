@@ -26,7 +26,6 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     Button  buttonNewGnocchi;
-    Button  buttonAddPhoto;
     Button  button_test_gnocchi;
     ArrayList<GnocchiOverview> gnocchiOverviews;
     LinearLayout linearLayoutParent;
@@ -38,7 +37,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        buttonAddPhoto = findViewById(R.id.button_add_photo);
         buttonNewGnocchi = findViewById(R.id.button_new);
         button_test_gnocchi = findViewById(R.id.button_test_gnocchi);
         linearLayoutParent = findViewById(R.id.parent_linearLayout);
@@ -65,6 +63,10 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
+    }
+
+    private void populateList() {
         gnocchiOverviews = BitmapFileDao.getGnocchies(this);
 
 
@@ -76,23 +78,14 @@ public class MainActivity extends AppCompatActivity {
             View view = myLayoutInflater.getView(i, null, null);
             linearLayoutParent.addView(view);
         }
-
-
-        buttonAddPhoto.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                BitmapFileDao.dispatchTakePictureIntent(context, imageNumber++);
-            }
-        });
-
-
-
-
     }
 
-
-
-
+    @Override
+    protected void onResume() {
+        super.onResume();
+        linearLayoutParent.removeAllViews();
+        populateList();
+    }
 }
 
 

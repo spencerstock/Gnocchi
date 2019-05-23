@@ -20,6 +20,7 @@ import java.util.ArrayList;
 
 public class MyLayoutInflater extends ArrayAdapter{
 
+    public static final String TITLE = "title";
     private LayoutInflater mInflater;
     ArrayList<GnocchiOverview> objects;
 
@@ -47,7 +48,7 @@ public class MyLayoutInflater extends ArrayAdapter{
             @Override
             public void onClick(View v) {
                 Context context = v.getContext();
-                BitmapFileDao.dispatchTakePictureIntent(context, myObject.getSize()+1);
+                BitmapFileDao.dispatchTakePictureIntent(context, myObject.getSize()+1, myObject.getTitle());
                 myObject.setSize(myObject.getSize()+1);
             }
         });
@@ -62,6 +63,7 @@ public class MyLayoutInflater extends ArrayAdapter{
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(v.getContext().getApplicationContext(), DetailView.class);
+                i.putExtra(TITLE,myObject.getTitle());
                 v.getContext().startActivity(i);
             }
         });

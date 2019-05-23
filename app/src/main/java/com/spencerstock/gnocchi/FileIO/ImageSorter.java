@@ -15,9 +15,10 @@ public class ImageSorter {
     public static ArrayList<GnocchiOverview> sortImages(File[] images) {
 
         ArrayList<GnocchiOverview> overviews = new ArrayList<>();
-        boolean newGnocchi = true;
+        boolean newGnocchi;
 
         for (File image : images) {
+            newGnocchi = true;
 
             String fileTitle = "";
             String fileName = image.getName(); //creates a regex for finding the gnocchi name

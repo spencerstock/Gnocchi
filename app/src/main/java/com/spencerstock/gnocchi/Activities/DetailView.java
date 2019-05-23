@@ -1,5 +1,6 @@
 package com.spencerstock.gnocchi.Activities;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -7,8 +8,8 @@ import android.widget.GridLayout;
 import android.widget.ImageView;
 
 import com.spencerstock.gnocchi.FileIO.BitmapFileDao;
-import com.spencerstock.gnocchi.FileIO.ImageSorter;
 import com.spencerstock.gnocchi.GifBuilder.GifBuilderDao;
+import com.spencerstock.gnocchi.ImageProperties.MyLayoutInflater;
 import com.spencerstock.gnocchi.R;
 
 import java.util.ArrayList;
@@ -20,6 +21,7 @@ public class DetailView extends AppCompatActivity {
 
     GridLayout gridLayout;
     ArrayList<Bitmap> images;
+    String gnocchiTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,16 +30,15 @@ public class DetailView extends AppCompatActivity {
 
         gridLayout = findViewById(R.id.parent_gridLayout);
 
-        images = BitmapFileDao.getImages(this);
+        Intent intent = getIntent();
+        gnocchiTitle = intent.getStringExtra(MyLayoutInflater.TITLE);
+        images = BitmapFileDao.getGnocchi(this, gnocchiTitle);
 
 
 
         for (Bitmap image: images) {
             ImageView temp = new ImageView(this);
             temp.setImageBitmap(image);
-            //temp.setAdjustViewBounds(true);
-            temp.setMaxHeight(250);
-            temp.setMaxWidth(250);
             gridLayout.addView(temp);
         }
 

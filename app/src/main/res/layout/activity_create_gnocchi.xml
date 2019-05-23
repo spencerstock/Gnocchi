@@ -36,6 +36,7 @@
 
 
     <Button
+        android:id="@+id/buttom_complete_new_gnocchi"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:text="Complete"

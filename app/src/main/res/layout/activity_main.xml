@@ -6,8 +6,11 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
     <LinearLayout
-        android:id="@+id/parent_linearLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorPrimary"
@@ -89,17 +92,6 @@
 
                 />
 
-
-            <Button
-                android:id="@+id/button_add_photo"
-                android:text="Add Photo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-
-                />
-
             <Button
                 android:id="@+id/button_test_gnocchi"
                 android:text="Test Gnocchi"
@@ -111,7 +103,17 @@
                 />
         </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/parent_linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorPrimary"
+            android:orientation="vertical">
+
+        </LinearLayout>
+
 
     </LinearLayout>
+    </ScrollView>
 
 </android.support.design.widget.CoordinatorLayout>

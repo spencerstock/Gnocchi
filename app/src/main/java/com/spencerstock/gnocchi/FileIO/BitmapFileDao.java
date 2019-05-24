@@ -17,6 +17,7 @@ import java.io.File;
 import java.io.FileFilter;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -89,6 +90,37 @@ public class BitmapFileDao {
                 ((Activity) context).startActivityForResult(takePictureIntent, REQUEST_IMAGE_CODE);
             }
         }
+    }
+
+
+    public static void dispatchShareGifIntent(Context context, String resourceName) {
+
+
+        String baseDir = Environment.getExternalStorageDirectory().getAbsolutePath();
+        String fileName = "sharingGif.gif";
+
+        File sharingGifFile = new File(baseDir, fileName);
+
+        try {
+            byte[] readData = new byte[1024 * 500];
+            InputStream inputStream = context.getResources().openRawResource(context.getResources().getIdentifier(resourceName, "drawable", context.getPackageName()));
+
+            FileOutputStream fileOutputStream = new FileOutputStream(sharingGifFile);
+            int i = inputStream.read(readData);
+
+            while (i != -1) {
+                fileOutputStream.write(readData, 0, i);
+                i = inputStream.read(readData);
+            }
+
+            fileOutputStream.close();
+        } catch (IOException io) {
+        }
+        Intent shareIntent = new Intent(android.content.Intent.ACTION_SEND);
+        shareIntent.setType("image/gif");
+        Uri uri = Uri.fromFile(sharingGifFile);
+        shareIntent.putExtra(Intent.EXTRA_STREAM, uri);
+        context.startActivity(Intent.createChooser(shareIntent, "Share Emoji"));
     }
 
 }

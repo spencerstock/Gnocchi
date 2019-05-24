@@ -40,6 +40,11 @@
                 android:layout_height="wrap_content" />
 
 
+            <TextView
+                android:text="Gif Speed"
+                android:paddingStart="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
             <SeekBar
                 android:id="@+id/gif_speed_seekbar"
@@ -47,6 +52,33 @@
                 android:layout_height="wrap_content"
                 android:max="999"
                 android:progress="800"/>
+
+
+            <TextView
+                android:text="Extra Pause on First Frame"
+                android:paddingStart="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <SeekBar
+                android:id="@+id/gif_first_frame_seekbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:max="1000"
+                android:progress="0"/>
+
+            <TextView
+                android:text="Extra Pause on Last Frame"
+                android:paddingStart="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <SeekBar
+                android:id="@+id/gif_last_frame_seekbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:max="1000"
+                android:progress="0"/>
 
             <Button
                 android:id="@+id/button_refactor_gif"

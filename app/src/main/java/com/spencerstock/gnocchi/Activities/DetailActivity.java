@@ -33,10 +33,12 @@ public class DetailActivity extends AppCompatActivity {
     int               screenHeight;
     Context           context;
     ProgressBar       progressBar;
-    int               gifDelay;
     Button            refactorGifButton;
     SeekBar           gifSpeedSeekbar;
+    SeekBar           firstFrameDelay;
+    SeekBar           lastFrameDelay;
     boolean           refactor = false;
+    ImageView         gifImageView;
 
 
     @Override
@@ -52,6 +54,9 @@ public class DetailActivity extends AppCompatActivity {
         screenWidth = size.x;
         screenHeight = size.y;
 
+        gifImageView = findViewById(R.id.gif_image_view);
+        firstFrameDelay = findViewById(R.id.gif_first_frame_seekbar);
+        lastFrameDelay = findViewById(R.id.gif_last_frame_seekbar);
         gifSpeedSeekbar = findViewById(R.id.gif_speed_seekbar);
         gridLayout = findViewById(R.id.parent_gridLayout);
         progressBar = findViewById(R.id.progressBar_cyclic);
@@ -85,24 +90,31 @@ public class DetailActivity extends AppCompatActivity {
             temp.getLayoutParams().width = screenWidth / 3;
             temp.getLayoutParams().height = (int) ((image.getHeight()) * ((double) (screenWidth / 3) / image.getWidth()));
         }
-        generateGif(200);
+        generateGif(200, 0, 0);
 
 
         refactorGifButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
+                gifImageView.setVisibility(View.GONE);
+                progressBar.setVisibility(View.VISIBLE);
                 int speed = 1000 - gifSpeedSeekbar.getProgress();
-                generateGif(speed);
+                int firstFrameDelayInt = firstFrameDelay.getProgress();
+                int lastFrameDelayInt = lastFrameDelay.getProgress();
+
+                generateGif(speed, firstFrameDelayInt, lastFrameDelayInt);
             }
         });
     }
 
 
-    private void generateGif(final int delayms) {
+    private void generateGif(final int delayms, final int lastFrameDelay, final int firstFrameDelay) {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                final GifDrawable gifDrawable = GifBuilderDao.generateGIF(images, gnocchiTitle, delayms);
+                final GifDrawable gifDrawable = GifBuilderDao.generateGIF(images, gnocchiTitle, delayms, lastFrameDelay, firstFrameDelay);
 
 
                 runOnUiThread(new Runnable() {
@@ -110,7 +122,8 @@ public class DetailActivity extends AppCompatActivity {
                     public void run() {
                         progressBar.setVisibility(View.GONE);
                         refactorGifButton.setVisibility(View.VISIBLE);
-                        ImageView gifImageView = findViewById(R.id.gif_image_view);
+                        gifImageView.setVisibility(View.VISIBLE);
+
                         gifImageView.setBackground(gifDrawable);
                         gifDrawable.setLoopCount(0);
                         gifDrawable.start();
@@ -120,7 +133,7 @@ public class DetailActivity extends AppCompatActivity {
                         if (refactor) {
                             Toast.makeText(context, "Gif refactored", Toast.LENGTH_SHORT).show();
                         }
-                        if (!refactor) refactor=true;
+                        if (!refactor) refactor = true;
                     }
                 });
 

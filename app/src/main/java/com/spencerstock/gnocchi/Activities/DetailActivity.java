@@ -4,23 +4,22 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Point;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Display;
 import android.view.View;
 import android.widget.GridLayout;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 
 import com.spencerstock.gnocchi.FileIO.BitmapFileDao;
 import com.spencerstock.gnocchi.GifBuilder.GifBuilderDao;
 import com.spencerstock.gnocchi.ImageProperties.MyLayoutInflater;
 import com.spencerstock.gnocchi.R;
 
-import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 
 import pl.droidsonroids.gif.GifDrawable;
-import pl.droidsonroids.gif.GifImageView;
 
 public class DetailActivity extends AppCompatActivity {
 
@@ -30,6 +29,7 @@ public class DetailActivity extends AppCompatActivity {
     int               screenWidth;
     int               screenHeight;
     Context           context;
+    ProgressBar       progressBar;
 
 
     @Override
@@ -46,14 +46,14 @@ public class DetailActivity extends AppCompatActivity {
         screenHeight = size.y;
 
         gridLayout = findViewById(R.id.parent_gridLayout);
+        progressBar = findViewById(R.id.progressBar_cyclic);
 
         Intent intent = getIntent();
         gnocchiTitle = intent.getStringExtra(MyLayoutInflater.TITLE);
         images = BitmapFileDao.getGnocchi(this, gnocchiTitle);
 
 
-
-        for (final Bitmap image: images) {
+        for (final Bitmap image : images) {
             ImageView temp = new ImageView(this);
             temp.setImageBitmap(image);
 
@@ -72,17 +72,31 @@ public class DetailActivity extends AppCompatActivity {
             });
 
             gridLayout.addView(temp);
-            temp.getLayoutParams().width = screenWidth/3;
-            temp.getLayoutParams().height = (int)((image.getHeight()) * ((double)(screenWidth/3)/image.getWidth()));
+            temp.getLayoutParams().width = screenWidth / 3;
+            temp.getLayoutParams().height = (int) ((image.getHeight()) * ((double) (screenWidth / 3) / image.getWidth()));
         }
 
 
-        GifDrawable gifDrawable = GifBuilderDao.generateGIF(images);
-        ImageView gifImageView = findViewById(R.id.gif_image_view);
-        gifImageView.setBackground(gifDrawable);
-        gifDrawable.setLoopCount(0);
-        gifDrawable.start();
-        gifImageView.getLayoutParams().width = screenWidth;
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                final GifDrawable gifDrawable = GifBuilderDao.generateGIF(images);
+
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        progressBar.setVisibility(View.GONE);
+                        ImageView gifImageView = findViewById(R.id.gif_image_view);
+                        gifImageView.setBackground(gifDrawable);
+                        gifDrawable.setLoopCount(0);
+                        gifDrawable.start();
+                        gifImageView.getLayoutParams().width = screenWidth;
+                    }
+                });
+
+            }
+        }).start();
 
     }
 }

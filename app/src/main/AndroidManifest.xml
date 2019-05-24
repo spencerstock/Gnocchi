@@ -19,7 +19,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".Activities.DetailView"></activity>
-        <activity android:name=".Activities.CreateGnocchi" />
+        <activity android:name=".Activities.CreateGnocchi" android:windowSoftInputMode="adjustResize"/>
         <activity android:name=".Activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

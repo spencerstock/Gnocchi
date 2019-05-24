@@ -20,12 +20,13 @@ import java.util.ArrayList;
 
 public class MyLayoutInflater extends ArrayAdapter{
 
-    public static final String TITLE = "title";
-    private LayoutInflater mInflater;
-    ArrayList<GnocchiOverview> objects;
+    public static final String                     TITLE = "title";
+    private             LayoutInflater             mInflater;
+    private             ArrayList<GnocchiOverview> objects;
+    private String subTitleText;
 
     public MyLayoutInflater(Context context, ArrayList<GnocchiOverview> objects) {
-        super(context, 1, objects);
+        super(context, R.layout.single_element_gnocchi_list, objects);
         /* We get the inflator in the constructor */
         mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.objects = objects;
@@ -42,6 +43,7 @@ public class MyLayoutInflater extends ArrayAdapter{
 
         /* Get the widget with id name which is defined in the xml of the row */
         TextView title = view.findViewById(R.id.single_element_textView_top);
+        TextView subTitle = view.findViewById(R.id.single_element_textView_bottom);
         ImageView preview = view.findViewById(R.id.single_element_imageView);
         ImageView add_photo = view.findViewById(R.id.single_element_add_photo_imageView);
         add_photo.setOnClickListener(new View.OnClickListener() {
@@ -55,6 +57,8 @@ public class MyLayoutInflater extends ArrayAdapter{
 
         /* Populate the row's xml with info from the item */
         title.setText(myObject.getTitle());
+        subTitleText = myObject.getSize() + " image files in this Gnocchi";
+        subTitle.setText(subTitleText);
         preview.setImageBitmap(myObject.getFirstFrame());
 
         /* Return the generated view */

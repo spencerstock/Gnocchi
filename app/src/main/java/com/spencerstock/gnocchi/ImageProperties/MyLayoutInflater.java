@@ -9,10 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-
-import com.spencerstock.gnocchi.Activities.DetailView;
+import com.spencerstock.gnocchi.Activities.DetailActivity;
 import com.spencerstock.gnocchi.FileIO.BitmapFileDao;
 import com.spencerstock.gnocchi.R;
 
@@ -66,7 +63,7 @@ public class MyLayoutInflater extends ArrayAdapter{
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(v.getContext().getApplicationContext(), DetailView.class);
+                Intent i = new Intent(v.getContext().getApplicationContext(), DetailActivity.class);
                 i.putExtra(TITLE,myObject.getTitle());
                 v.getContext().startActivity(i);
             }

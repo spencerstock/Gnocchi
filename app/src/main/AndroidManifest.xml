@@ -6,10 +6,10 @@
         android:name="android.hardware.camera"
         android:required="true" />
 
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:maxSdkVersion="18" />
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="18" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
-
 
     <application
         android:allowBackup="true"
@@ -18,8 +18,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activities.DetailView"></activity>
-        <activity android:name=".Activities.CreateGnocchi" android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".Activities.EnlargedViewSingleImage"></activity>
+        <activity android:name=".Activities.DetailActivity" />
+        <activity
+            android:name=".Activities.CreateGnocchi"
+            android:windowSoftInputMode="adjustResize" />
         <activity android:name=".Activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,7 +31,6 @@
             </intent-filter>
         </activity>
 
-
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="com.spencerstock.gnocchi.fileprovider"
@@ -36,7 +38,7 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths"></meta-data>
+                android:resource="@xml/file_paths" />
         </provider>
     </application>
 

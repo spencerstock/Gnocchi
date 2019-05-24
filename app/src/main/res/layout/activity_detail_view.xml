@@ -38,6 +38,21 @@
                 android:id="@+id/gif_image_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
+
+
+
+            <SeekBar
+                android:id="@+id/gif_speed_seekbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:max="999"
+                android:progress="800"/>
+
+            <Button
+                android:id="@+id/button_refactor_gif"
+                android:text="Refactor Gif"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
         </LinearLayout>
 
 

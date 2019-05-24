@@ -12,15 +12,15 @@ import pl.droidsonroids.gif.GifDrawable;
 public class GifBuilderDao {
 
 
-    public static GifDrawable generateGIF(ArrayList<Bitmap> images) {
+    public static GifDrawable generateGIF(ArrayList<Bitmap> images, String gnocchiName, int delayms) {
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         GifBuilder encoder = new GifBuilder();
         encoder.start(bos);
         for (Bitmap image : images) {
             encoder.addFrame(image);
+            encoder.setDelay(delayms);
         }
         encoder.finish();
-
 
         GifDrawable gifDrawable = byteArrayToGif(bos.toByteArray());
 
@@ -34,6 +34,8 @@ public class GifBuilderDao {
         GifDrawable gif = null;
         try {
             gif = new GifDrawable(byteArray);
+
+
         } catch (IOException e) {
             e.printStackTrace();
         }

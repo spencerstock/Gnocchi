@@ -10,7 +10,7 @@
         android:layout_height="150dp"
         android:layout_margin="5dp"
         android:padding="10dp"
-        android:backgroundTint="@color/blue_500"
+        android:backgroundTint="@color/blue_800"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         card_view:cardCornerRadius="4dp">

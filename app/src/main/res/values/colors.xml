@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="colorPrimary">#303F9F</color>
-    <color name="colorPrimaryDark">#5E35B1</color>
-    <color name="colorAccent">#9575CD</color>
+    <color name="colorPrimary">#1B2144</color>
+    <color name="colorPrimaryDark">#5E6381</color>
+    <color name="colorAccent">#5E6381</color>
     <color name="launcherIconBg">#C0C7CE</color>
 
     <color name="red_50">#FFEBEE</color>
